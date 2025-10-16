@@ -1,27 +1,34 @@
-import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
 import ProtectedRoute from './components/ProtectedRoute';
+import Navbar from './components/Navbar';
 import Login from './pages/Login';
-import Empleados from './pages/Empleados';
-import Solicitudes from './pages/Solicitudes';
 import Register from './pages/Register';
+import Empleados from './pages/Empleados';
+import EmpleadoForm from './pages/EmpleadoForm';
+import Solicitudes from './pages/Solicitudes';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
   return (
     <AuthProvider>
       <BrowserRouter>
-        <nav className="navbar navbar-expand navbar-light bg-light px-3">
-          <Link className="navbar-brand" to="/solicitudes">Think</Link>
-          <div className="navbar-nav">
-            <Link className="nav-link" to="/solicitudes">Solicitudes</Link>
-            <Link className="nav-link" to="/empleados">Empleados</Link>
-          </div>
-        </nav>
+        <Navbar />
         <Routes>
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
-          <Route path="/solicitudes" element={<ProtectedRoute><Solicitudes /></ProtectedRoute>} />
-          <Route path="/empleados" element={<ProtectedRoute><Empleados /></ProtectedRoute>} />
+          <Route
+            path="/solicitudes"
+            element={<ProtectedRoute><Solicitudes /></ProtectedRoute>}
+          />
+          <Route
+            path="/empleados"
+            element={<ProtectedRoute><Empleados /></ProtectedRoute>}
+          />
+          <Route
+            path="/empleados/nuevo"
+            element={<ProtectedRoute><EmpleadoForm /></ProtectedRoute>}
+          />
           <Route path="*" element={<Login />} />
         </Routes>
       </BrowserRouter>

@@ -1,8 +1,11 @@
+import {Link} from 'react-router-dom';
+import {useAuth} from '../context/AuthContext';
 import {useEffect, useState} from 'react';
 import api from '../api/axios';
 
 export default function Empleados() {
   const [data, setData] = useState([]);
+  const {user} = useAuth();
 
   useEffect(() => {
     api
@@ -12,7 +15,15 @@ export default function Empleados() {
 
   return (
     <div className="container mt-5">
-      <h2>Empleados</h2>
+      <div className="d-flex justify-content-between align-items-center mb-3">
+        <h2>Empleados</h2>
+        {user?.roles?.includes('ADMIN') && (
+          <Link to="/empleados/nuevo" className="btn btn-primary">
+            Nuevo Empleado
+          </Link>
+        )}
+      </div>
+
       <ul className="list-group">
         {data.map((e) => (
           <li
