@@ -4,6 +4,7 @@ import ProtectedRoute from './components/ProtectedRoute';
 import Login from './pages/Login';
 import Empleados from './pages/Empleados';
 import Solicitudes from './pages/Solicitudes';
+import Register from './pages/Register';
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         </nav>
         <Routes>
           <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
           <Route path="/solicitudes" element={<ProtectedRoute><Solicitudes /></ProtectedRoute>} />
           <Route path="/empleados" element={<ProtectedRoute><Empleados /></ProtectedRoute>} />
           <Route path="*" element={<Login />} />

@@ -1,13 +1,15 @@
-import { useEffect, useState } from 'react';
+import {useEffect, useState} from 'react';
 import api from '../api/axios';
-import { useAuth } from '../context/AuthContext';
+import {useAuth} from '../context/AuthContext';
 
 export default function Solicitudes() {
   const [data, setData] = useState([]);
-  const { user } = useAuth();
+  const {user} = useAuth();
 
   async function fetchData() {
-    const res = await api.get('/solicitudes?page=1&limit=10&sort=id&order=desc');
+    const res = await api.get(
+      '/solicitudes?page=1&limit=10&sort=id&order=desc'
+    );
     setData(res.data.data.items);
   }
 
@@ -16,7 +18,9 @@ export default function Solicitudes() {
     fetchData();
   }
 
-  useEffect(() => { fetchData(); }, []);
+  useEffect(() => {
+    fetchData();
+  }, []);
 
   return (
     <div className="container mt-5">
@@ -24,11 +28,16 @@ export default function Solicitudes() {
       <table className="table table-striped">
         <thead>
           <tr>
-            <th>ID</th><th>Código</th><th>Descripción</th><th>Resumen</th><th>Empleado</th><th></th>
+            <th>ID</th>
+            <th>Código</th>
+            <th>Descripción</th>
+            <th>Resumen</th>
+            <th>Empleado</th>
+            <th></th>
           </tr>
         </thead>
         <tbody>
-          {data.map(s => (
+          {data.map((s) => (
             <tr key={s.id}>
               <td>{s.id}</td>
               <td>{s.codigo}</td>
@@ -37,7 +46,10 @@ export default function Solicitudes() {
               <td>{s.empleado?.nombre}</td>
               <td>
                 {user?.roles?.includes('ADMIN') && (
-                  <button className="btn btn-sm btn-danger" onClick={() => deleteSolicitud(s.id)}>
+                  <button
+                    className="btn btn-sm btn-danger"
+                    onClick={() => deleteSolicitud(s.id)}
+                  >
                     Eliminar
                   </button>
                 )}
